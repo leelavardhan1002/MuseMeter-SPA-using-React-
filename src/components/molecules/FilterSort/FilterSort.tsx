@@ -1,6 +1,7 @@
 import { Select } from "../../atoms";
+import { Button } from "../../atoms";
 import { ENTRY_TYPE_OPTIONS } from "../../../constants/categories";
-import styles from "./FilterSort.module.css";
+import { StyledControls } from "./FilterSort.styled";
 
 interface FilterSortProps {
     filterType: string;
@@ -30,7 +31,7 @@ export function FilterSort({
     onToggleFavorites,
 }: FilterSortProps) {
     return (
-        <div className={styles.controls}>
+        <StyledControls>
             <Select
                 options={FILTER_OPTIONS}
                 value={filterType}
@@ -41,12 +42,12 @@ export function FilterSort({
                 value={sortOption}
                 onChange={(e) => onSortChange(e.target.value)}
             />
-            <button
-                className={`btn ${showFavorites ? "btn-warning" : "btn-outline-warning"} w-100`}
+            <Button
+                variant={showFavorites ? "warning" : "outline-warning"}
                 onClick={onToggleFavorites}
             >
                 {showFavorites ? "Show All" : "Show Favorites \u2B50"}
-            </button>
-        </div>
+            </Button>
+        </StyledControls>
     );
 }

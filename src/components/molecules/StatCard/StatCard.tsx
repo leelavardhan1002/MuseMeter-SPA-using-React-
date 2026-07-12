@@ -1,16 +1,24 @@
-import styles from "./StatCard.module.css";
+import { Palette } from "@mui/material/styles";
+import { StyledCard, StyledLabel, StyledCount, IconLabel } from "./StatCard.styled";
+import { SvgIconComponent } from "@mui/icons-material";
+import { SvgIconProps } from "@mui/material";
 
 interface StatCardProps {
     label: string;
     count: number;
-    color: string;
+    color: keyof Palette;
+    Icon: SvgIconComponent;
+    glowIntensity?: number;
 }
 
-export function StatCard({ label, count, color }: StatCardProps) {
+export function StatCard({ label, count, color, Icon, glowIntensity }: StatCardProps) {
     return (
-        <div className={styles.card} style={{ backgroundColor: color }}>
-            <h3 className={styles.label}>{label}</h3>
-            <p className={styles.count}>{count}</p>
-        </div>
+        <StyledCard color={color} glowIntensity={glowIntensity}>
+            <IconLabel>
+                <Icon fontSize="large" color={color as SvgIconProps["color"]} />
+                <StyledLabel color={color}>{label}</StyledLabel>
+            </IconLabel>
+            <StyledCount color={color}>{count}</StyledCount>
+        </StyledCard>
     );
 }

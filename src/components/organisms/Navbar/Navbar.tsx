@@ -1,48 +1,62 @@
-import { Link } from "react-router-dom";
 import logo from "../../../assets/logo.png";
-import styles from "./Navbar.module.css";
+import {
+    LogoImage,
+    StyledAppbar,
+    StyledContainer,
+    StyledLogo,
+    StyledToggleButton,
+    StyledToggleButtonGroup,
+    StyledToolbar,
+    ThemeToggleButton,
+} from "./Navbar.style";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useThemeMode } from "../../../hooks/useThemeMode";
+import LightModeIcon from "@mui/icons-material/LightMode";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
 
-export function Navbar() {
+const routes = [
+    { name: "Home", path: "/" },
+    { name: "Add Entry", path: "/add" },
+    { name: "View Entries", path: "/view" },
+];
+
+export function Navbar({ sticky }: { sticky: boolean }) {
+    const { pathname } = useLocation();
+    const navigate = useNavigate();
+    const { mode, toggle } = useThemeMode();
+
     return (
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div className="container">
-                <Link to="/">
-                    <img src={logo} alt="MuseMeter Logo" className={styles.logo} />
-                </Link>
-                <Link className={`navbar-brand ms-2 ${styles.brand}`} to="/">
-                    MuseMeter
-                </Link>
-                <button
-                    className="navbar-toggler"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarNav"
-                    aria-controls="navbarNav"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation"
-                >
-                    <span className="navbar-toggler-icon" />
-                </button>
-                <div className="collapse navbar-collapse" id="navbarNav">
-                    <ul className="navbar-nav ms-auto">
-                        <li className="nav-item">
-                            <Link className={`nav-link ${styles.link}`} to="/">
-                                Home
-                            </Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className={`nav-link ${styles.link}`} to="/add">
-                                Add Entry
-                            </Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className={`nav-link ${styles.link}`} to="/view">
-                                View Entries
-                            </Link>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+        <StyledAppbar $isSticky={sticky}>
+            <StyledContainer maxWidth="xl" $isSticky={sticky}>
+                <StyledToolbar disableGutters $isSticky={sticky}>
+                    <StyledLogo startIcon={<LogoImage src={logo} alt="MuseMeter Logo" />}>
+                        Muse Meter
+                    </StyledLogo>
+                    <StyledToggleButtonGroup
+                        exclusive
+                        value={pathname}
+                        onChange={(_, value) => {
+                            navigate(value);
+                        }}
+                    >
+                        {routes.map((route) => (
+                            <StyledToggleButton
+                                key={route.path}
+                                value={route.path}
+                                disableTouchRipple={pathname === route.path}
+                            >
+                                {route.name}
+                            </StyledToggleButton>
+                        ))}
+                    </StyledToggleButtonGroup>
+                    <ThemeToggleButton
+                        onClick={toggle}
+                        aria-label="Toggle theme"
+                    >
+                        {mode === "light" ? <LightModeIcon /> : <DarkModeIcon />}
+                    </ThemeToggleButton>
+                </StyledToolbar>
+            </StyledContainer>
+        </StyledAppbar>
     );
 }

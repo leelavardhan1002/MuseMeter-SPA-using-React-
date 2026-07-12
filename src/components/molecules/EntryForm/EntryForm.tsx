@@ -2,7 +2,7 @@ import { useState } from "react";
 import type { EntryType } from "../../../types";
 import { Input, Select, TextArea, Rating, Button } from "../../atoms";
 import { ENTRY_TYPE_OPTIONS } from "../../../constants/categories";
-import styles from "./EntryForm.module.css";
+import { StyledForm, StyledRatingGroup } from "./EntryForm.styled";
 
 interface EntryFormProps {
     onSubmit: (data: {
@@ -37,7 +37,7 @@ export function EntryForm({ onSubmit }: EntryFormProps) {
     };
 
     return (
-        <form onSubmit={handleSubmit} className={styles.form}>
+        <StyledForm onSubmit={handleSubmit}>
             <Input
                 label="Title"
                 type="text"
@@ -52,10 +52,10 @@ export function EntryForm({ onSubmit }: EntryFormProps) {
                 value={type}
                 onChange={(e) => setType(e.target.value as EntryType)}
             />
-            <div className={styles.ratingGroup}>
+            <StyledRatingGroup>
                 <label>Rating (1-5)</label>
                 <Rating value={rating} onChange={setRating} />
-            </div>
+            </StyledRatingGroup>
             <TextArea
                 label="Your Thoughts"
                 rows={3}
@@ -66,6 +66,6 @@ export function EntryForm({ onSubmit }: EntryFormProps) {
             <Button type="submit" variant="gold">
                 Add Entry
             </Button>
-        </form>
+        </StyledForm>
     );
 }

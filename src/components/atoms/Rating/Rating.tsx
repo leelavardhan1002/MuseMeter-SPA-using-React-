@@ -1,4 +1,4 @@
-import styles from "./Rating.module.css";
+import { StyledRating, StyledStar } from "./Rating.styled";
 
 interface RatingProps {
     value: number;
@@ -9,15 +9,14 @@ interface RatingProps {
 
 export function Rating({ value, max = 5, onChange, readonly = false }: RatingProps) {
     return (
-        <div className={styles.rating}>
+        <StyledRating>
             {Array.from({ length: max }, (_, i) => {
                 const starValue = i + 1;
                 return (
-                    <span
+                    <StyledStar
                         key={starValue}
-                        className={`${styles.star} ${starValue <= value ? styles.filled : ""} ${
-                            !readonly ? styles.clickable : ""
-                        }`}
+                        $filled={starValue <= value}
+                        $clickable={!readonly}
                         onClick={() => !readonly && onChange?.(starValue)}
                         role={readonly ? undefined : "button"}
                         tabIndex={readonly ? undefined : 0}
@@ -28,9 +27,9 @@ export function Rating({ value, max = 5, onChange, readonly = false }: RatingPro
                         }}
                     >
                         &#9733;
-                    </span>
+                    </StyledStar>
                 );
             })}
-        </div>
+        </StyledRating>
     );
 }

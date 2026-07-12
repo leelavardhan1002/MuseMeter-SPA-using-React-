@@ -3,6 +3,7 @@ import { useEntryStore } from "../store/useEntryStore";
 import { PageLayout } from "../components/templates";
 import { SearchBar, FilterSort } from "../components/molecules";
 import { EntryGrid } from "../components/organisms";
+import { StyledToolbar, StyledSearchArea, StyledFilterArea } from "./ViewEntries.styled";
 
 export function ViewEntries() {
     const entries = useEntryStore((s) => s.entries);
@@ -49,11 +50,11 @@ export function ViewEntries() {
 
     return (
         <PageLayout title="Your Entries">
-            <div className="row mb-4">
-                <div className="col-md-3 mb-2">
+            <StyledToolbar>
+                <StyledSearchArea>
                     <SearchBar value={searchTerm} onChange={setSearchTerm} />
-                </div>
-                <div className="col-md-9 mb-2">
+                </StyledSearchArea>
+                <StyledFilterArea>
                     <FilterSort
                         filterType={filterType}
                         onFilterChange={setFilterType}
@@ -62,8 +63,8 @@ export function ViewEntries() {
                         showFavorites={showFavorites}
                         onToggleFavorites={() => setShowFavorites(!showFavorites)}
                     />
-                </div>
-            </div>
+                </StyledFilterArea>
+            </StyledToolbar>
             <EntryGrid
                 entries={filteredEntries}
                 onDelete={deleteEntry}

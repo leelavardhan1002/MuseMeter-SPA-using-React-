@@ -1,5 +1,6 @@
 import type { MuseMeterEntry } from "../../../types";
 import { EntryCard } from "../EntryCard";
+import { StyledGrid } from "./EntryGrid.styled";
 
 interface EntryGridProps {
     entries: MuseMeterEntry[];
@@ -13,16 +14,15 @@ export function EntryGrid({ entries, onDelete, onToggleFavorite }: EntryGridProp
     }
 
     return (
-        <div className="row">
+        <StyledGrid>
             {entries.map((entry) => (
-                <div className="col-md-4 mb-4" key={entry.id}>
-                    <EntryCard
-                        entry={entry}
-                        onDelete={onDelete}
-                        onToggleFavorite={onToggleFavorite}
-                    />
-                </div>
+                <EntryCard
+                    key={entry.id}
+                    entry={entry}
+                    onDelete={onDelete}
+                    onToggleFavorite={onToggleFavorite}
+                />
             ))}
-        </div>
+        </StyledGrid>
     );
 }

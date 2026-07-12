@@ -1,4 +1,5 @@
 import type { SelectHTMLAttributes } from "react";
+import { StyledWrapper, StyledLabel, StyledSelect } from "./Select.styled";
 
 interface SelectOption {
     value: string;
@@ -10,19 +11,23 @@ interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
     options: SelectOption[];
 }
 
-export function Select({ label, options, id, className = "", ...rest }: SelectProps) {
+export function Select({ label, options, id, ...rest }: SelectProps) {
     const selectId = id ?? label?.toLowerCase().replace(/\s+/g, "-");
 
     return (
-        <div className={className}>
-            {label && <label htmlFor={selectId}>{label}</label>}
-            <select id={selectId} className="form-select" {...rest}>
+        <StyledWrapper>
+            {label && (
+                <StyledLabel htmlFor={selectId}>
+                    {label}
+                </StyledLabel>
+            )}
+            <StyledSelect id={selectId} {...rest}>
                 {options.map((opt) => (
                     <option key={opt.value} value={opt.value}>
                         {opt.label}
                     </option>
                 ))}
-            </select>
-        </div>
+            </StyledSelect>
+        </StyledWrapper>
     );
 }

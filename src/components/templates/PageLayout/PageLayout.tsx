@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import styles from "./PageLayout.module.css";
+import { StyledLayout, StyledTitle } from "./PageLayout.styled";
 
 interface PageLayoutProps {
     title: string;
@@ -8,9 +8,9 @@ interface PageLayoutProps {
 
 export function PageLayout({ title, children }: PageLayoutProps) {
     return (
-        <div className={styles.layout}>
-            <h2 className={styles.title}>{title}</h2>
+        <StyledLayout>
+            <StyledTitle>{title}</StyledTitle>
             {children}
-        </div>
+        </StyledLayout>
     );
 }

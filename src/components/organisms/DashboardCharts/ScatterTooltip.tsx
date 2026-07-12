@@ -1,3 +1,5 @@
+import { useTheme } from "@mui/material/styles";
+
 interface ScatterTooltipPayload {
     date: number;
     type: string;
@@ -10,20 +12,23 @@ interface ScatterTooltipProps {
 }
 
 export function ScatterTooltip({ active, payload }: ScatterTooltipProps) {
+    const theme = useTheme();
+
     if (!active || !payload?.length) {
         return null;
     }
 
-    const data = payload[0].payload;
+    const data = payload[0]!.payload;
 
     return (
         <div
             style={{
-                backgroundColor: "#fff",
-                border: "1px solid #ccc",
+                backgroundColor: theme.palette.background.paper,
+                border: `1px solid ${theme.palette.divider}`,
                 borderRadius: "6px",
                 padding: "10px",
-                boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
+                boxShadow: theme.palette.elevation.shadowMd,
+                color: theme.palette.text.primary,
             }}
         >
             <p>

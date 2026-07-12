@@ -1,3 +1,6 @@
+import { SvgIconComponent } from "@mui/icons-material";
+import { Palette } from "@mui/material/styles";
+
 export type EntryType = "book" | "movie" | "poem" | "music" | "theatre-play";
 
 export interface MuseMeterEntry {
@@ -14,5 +17,6 @@ export interface MuseMeterEntry {
 export interface CategoryConfig {
     type: EntryType;
     label: string;
-    color: string;
+    color: keyof Palette;
+    Icon: SvgIconComponent;
 }
